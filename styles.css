@@ -54,6 +54,27 @@ section h2 {
     color: #2c3e50;
 }
 
+h2 {
+    cursor: pointer;
+    background-color: #77a2cc;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+h2:hover {
+    background-color: #999999;
+}
+
+.collapsible-content {
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    background-color: #fff;
+}
+
 .airbnb, .actividad {
     margin-bottom: 1.5rem;
     border: 1px solid #ddd;
@@ -89,4 +110,47 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
+}
+
+button {
+    display: block;
+    margin: 1rem 0;
+    padding: 0.5rem 1rem;
+    background-color: #77a2cc;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #999999;
+}
+
+.form-container {
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.form-container h3 {
+    margin-bottom: 1rem;
+    color: #2c3e50;
+}
+
+.form-container label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #34495e;
+}
+
+.form-container input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
 }
