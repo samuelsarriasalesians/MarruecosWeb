@@ -162,6 +162,8 @@
     </footer>
 
     <script>
+        const password = "12345aA";
+
         function toggleSection(id) {
             const content = document.getElementById(id);
             content.style.display = content.style.display === 'none' ? 'block' : 'none';
@@ -183,6 +185,11 @@
             const precioPersona = document.getElementById('precio-persona').value;
 
             const airbnbContent = document.getElementById('airbnbs-content');
+            if (document.querySelector(`.airbnb a[href="${enlace}"]`)) {
+                alert("Este Airbnb ya está agregado.");
+                return;
+            }
+
             const newAirbnb = document.createElement('div');
             newAirbnb.className = 'airbnb';
             newAirbnb.innerHTML = `
@@ -190,8 +197,10 @@
                     <h3>${ciudad} - ${precioTotal} €</h3>
                     <p>Precio por persona: ${precioPersona} €</p>
                 </a>
+                <button onclick="deleteEntry(this, 'airbnb')">Borrar</button>
             `;
             airbnbContent.appendChild(newAirbnb);
+            saveData();
             document.getElementById('airbnb-form').reset();
             document.getElementById('airbnb-form').style.display = 'none';
         }
@@ -203,6 +212,11 @@
             const precio = document.getElementById('precio-actividad').value;
 
             const actividadContent = document.getElementById('actividades-content');
+            if (document.querySelector(`.actividad a[href="${enlace}"]`)) {
+                alert("Esta actividad ya está agregada.");
+                return;
+            }
+
             const newActividad = document.createElement('div');
             newActividad.className = 'actividad';
             newActividad.innerHTML = `
@@ -210,16 +224,78 @@
                     <h3>${titulo}</h3>
                     <p>Precio por persona: ${precio} €</p>
                 </a>
+                <button onclick="deleteEntry(this, 'actividad')">Borrar</button>
             `;
             actividadContent.appendChild(newActividad);
+            saveData();
             document.getElementById('actividad-form').reset();
             document.getElementById('actividad-form').style.display = 'none';
+        }
+
+        function deleteEntry(button, type) {
+            const userPassword = prompt("Introduce la contraseña para borrar:");
+            if (userPassword === password) {
+                button.parentElement.remove();
+                saveData();
+            } else {
+                alert("Contraseña incorrecta.");
+            }
+        }
+
+        function saveData() {
+            const airbnbs = Array.from(document.querySelectorAll('.airbnb')).map(airbnb => ({
+                ciudad: airbnb.querySelector('h3').textContent.split(' - ')[0],
+                enlace: airbnb.querySelector('a').href,
+                precioTotal: airbnb.querySelector('h3').textContent.split(' - ')[1].replace(' €', ''),
+                precioPersona: airbnb.querySelector('p').textContent.replace('Precio por persona: ', '').replace(' €', '')
+            }));
+            const actividades = Array.from(document.querySelectorAll('.actividad')).map(actividad => ({
+                titulo: actividad.querySelector('h3').textContent,
+                enlace: actividad.querySelector('a').href,
+                precio: actividad.querySelector('p').textContent.replace('Precio por persona: ', '').replace(' €', '')
+            }));
+            localStorage.setItem('airbnbs', JSON.stringify(airbnbs));
+            localStorage.setItem('actividades', JSON.stringify(actividades));
+        }
+
+        function loadData() {
+            const airbnbs = JSON.parse(localStorage.getItem('airbnbs')) || [];
+            const actividades = JSON.parse(localStorage.getItem('actividades')) || [];
+
+            const airbnbContent = document.getElementById('airbnbs-content');
+            airbnbs.forEach(({ ciudad, enlace, precioTotal, precioPersona }) => {
+                const newAirbnb = document.createElement('div');
+                newAirbnb.className = 'airbnb';
+                newAirbnb.innerHTML = `
+                    <a href="${enlace}" target="_blank">
+                        <h3>${ciudad} - ${precioTotal} €</h3>
+                        <p>Precio por persona: ${precioPersona} €</p>
+                    </a>
+                    <button onclick="deleteEntry(this, 'airbnb')">Borrar</button>
+                `;
+                airbnbContent.appendChild(newAirbnb);
+            });
+
+            const actividadContent = document.getElementById('actividades-content');
+            actividades.forEach(({ titulo, enlace, precio }) => {
+                const newActividad = document.createElement('div');
+                newActividad.className = 'actividad';
+                newActividad.innerHTML = `
+                    <a href="${enlace}" target="_blank">
+                        <h3>${titulo}</h3>
+                        <p>Precio por persona: ${precio} €</p>
+                    </a>
+                    <button onclick="deleteEntry(this, 'actividad')">Borrar</button>
+                `;
+                actividadContent.appendChild(newActividad);
+            });
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.collapsible-content').forEach(section => {
                 section.style.display = 'none';
             });
+            loadData();
         });
     </script>
 </body>

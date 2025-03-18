@@ -154,3 +154,12 @@ button:hover {
     border: 1px solid #ddd;
     border-radius: 8px;
 }
+
+.airbnb button, .actividad button {
+    margin-top: 0.5rem;
+    background-color: #e74c3c;
+}
+
+.airbnb button:hover, .actividad button:hover {
+    background-color: #c0392b;
+}
