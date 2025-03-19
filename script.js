@@ -62,9 +62,17 @@ function displayResumen(data) {
         .filter(value => value > 0) // Filtrar solo los valores válidos
         .reduce((sum, value) => sum + value, 0) / (data.slice(1).filter(row => parseFloat(row[4]) > 0).length) // Calcular la media
     ).toFixed(2);
-    document.getElementById('precio-comida').textContent = "110";
+    document.getElementById('precio-comida').textContent = (data.slice(1)
+        .map(row => parseFloat(row[8]) || 0)
+        .filter(value => value > 0) // Filtrar solo los valores válidos
+        .reduce((sum, value) => sum + value, 0) / (data.slice(1).filter(row => parseFloat(row[8]) > 0).length) // Calcular la media
+    ).toFixed(2);
+    const precioExtras = 40;
+
+    // Actualizar el precio de los extras
+    document.getElementById('precio-extras').textContent = precioExtras.toFixed(2);
     document.getElementById('rango-alojamiento').textContent = `${minPrecio.toFixed(2)} - ${maxPrecio.toFixed(2)}`;
-    document.getElementById('rango-total').textContent = `${(minPrecio + 218).toFixed(2)} - ${(maxPrecio + 218).toFixed(2)}`;
+    document.getElementById('rango-total').textContent = `${(minPrecio + 218).toFixed(2) + precioExtras} - ${(maxPrecio + 218).toFixed(2)}`;
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
