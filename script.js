@@ -72,7 +72,7 @@ function displayResumen(data) {
     // Actualizar el precio de los extras
     document.getElementById('precio-extras').textContent = precioExtras.toFixed(2);
     document.getElementById('rango-alojamiento').textContent = `${minPrecio.toFixed(2)} - ${maxPrecio.toFixed(2)}`;
-    document.getElementById('rango-total').textContent = `${(minPrecio + 218).toFixed(2) + precioExtras} - ${(maxPrecio + 218).toFixed(2)}`;
+    document.getElementById('rango-total').textContent = `${(minPrecio + 218 + precioExtras).toFixed(2)} - ${(maxPrecio + 218 + precioExtras).toFixed(2)}`;
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
