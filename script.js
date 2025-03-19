@@ -4,28 +4,24 @@ const SHEET_NAME = "Hoja 1"; // Cambia si tu hoja tiene otro nombre
 
 // Función para mostrar la sección seleccionada
 function mostrarSeccion(seccion) {
-    // Oculta todas las secciones
     document.querySelectorAll('.section').forEach((section) => {
         section.style.display = 'none';
     });
-
-    // Muestra la sección correspondiente
     document.getElementById(seccion).style.display = 'block';
 }
 
 // Cargar los datos desde la hoja de Google Sheets
 async function cargarDatos() {
     let url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${SHEET_NAME}?key=${API_KEY}`;
-    
     let response = await fetch(url);
     let data = await response.json();
 
-    // Limpia el contenido de cada sección antes de cargar los nuevos datos
+    // Limpiar el contenido de cada sección antes de cargar los nuevos datos
     document.querySelector("#airbnb-content").innerHTML = "";
     document.querySelector("#actividades-content").innerHTML = "";
     document.querySelector("#vuelos-content").innerHTML = "";
 
-    // Procesa cada fila de datos
+    // Procesar cada fila de datos
     data.values.slice(1).forEach((fila) => {
         // Mostrar Airbnb
         let airbnbHTML = `
@@ -70,5 +66,5 @@ function votar(tipo) {
 // Cargar los datos al abrir la página
 cargarDatos();
 
-// Mostrar la sección de Airbnb por defecto
+// Mostrar la sección de Airbnbs por defecto
 mostrarSeccion('airbnb');
