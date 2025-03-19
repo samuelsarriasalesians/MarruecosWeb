@@ -1,46 +1,74 @@
-const SHEET_ID = "1pQBlsj_3xrax9MlHGBjwgWeJ_Eg6AgkmRTPoe4R4Nvk";
+const SHEET_ID = "1HUXwwCEkzyihwzO-pz_EFyUnME_9jpMzFFmdDWnxQ7E";
 const API_KEY = "AIzaSyCtwPcdEhj8Zb13yOc6NdKQTQQPT4Us4iM";
-const SHEET_NAME = "MoroccoWebSheet"; // Cambia si tu hoja tiene otro nombre
+const SHEET_NAME = "Hoja 1"; // Cambia si tu hoja tiene otro nombre
 
+// Función para mostrar la sección seleccionada
+function mostrarSeccion(seccion) {
+    // Oculta todas las secciones
+    document.querySelectorAll('.section').forEach((section) => {
+        section.style.display = 'none';
+    });
+
+    // Muestra la sección correspondiente
+    document.getElementById(seccion).style.display = 'block';
+}
+
+// Cargar los datos desde la hoja de Google Sheets
 async function cargarDatos() {
     let url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${SHEET_NAME}?key=${API_KEY}`;
     
     let response = await fetch(url);
     let data = await response.json();
 
-    let tabla = document.querySelector("#tabla-viaje tbody");
-    tabla.innerHTML = ""; 
+    // Limpia el contenido de cada sección antes de cargar los nuevos datos
+    document.querySelector("#airbnb-content").innerHTML = "";
+    document.querySelector("#actividades-content").innerHTML = "";
+    document.querySelector("#vuelos-content").innerHTML = "";
 
-    data.values.slice(1).forEach((fila, index) => {
-        let filaHTML = `
-            <tr>
-                <td><a href="${fila[0]}" target="_blank">Ver Airbnb</a></td>
-                <td>${fila[1]}</td>
-                <td>${fila[2]}</td>
-                <td>${fila[3]}</td>
-                <td>${fila[4]}</td>
-                <td><button onclick="votar(${index})">Votar</button> <span id="votos-${index}">0</span></td>
-            </tr>
+    // Procesa cada fila de datos
+    data.values.slice(1).forEach((fila) => {
+        // Mostrar Airbnb
+        let airbnbHTML = `
+            <div class="card">
+                <h3>${fila[0]}</h3>
+                <p><strong>Ciudad:</strong> ${fila[1]}</p>
+                <p><strong>Precio Total:</strong> €${fila[2]}</p>
+                <p><strong>Precio por persona:</strong> €${fila[3]}</p>
+                <a href="${fila[0]}" target="_blank" class="button">Ver Airbnb</a>
+                <button class="button" onclick="votar('airbnb')">Votar</button>
+            </div>
         `;
-        tabla.innerHTML += filaHTML;
+        document.querySelector("#airbnb-content").innerHTML += airbnbHTML;
+
+        // Mostrar Actividades
+        let actividadHTML = `
+            <div class="card">
+                <h3>${fila[5]}</h3>
+                <p><strong>Precio por persona:</strong> €${fila[6]}</p>
+                <button class="button" onclick="votar('actividad')">Votar</button>
+            </div>
+        `;
+        document.querySelector("#actividades-content").innerHTML += actividadHTML;
+
+        // Mostrar Vuelos
+        let vueloHTML = `
+            <div class="card">
+                <h3>Vuelo</h3>
+                <p><strong>Precio:</strong> €${fila[4]}</p>
+                <button class="button" onclick="votar('vuelo')">Votar</button>
+            </div>
+        `;
+        document.querySelector("#vuelos-content").innerHTML += vueloHTML;
     });
-
-    cargarVotos();
 }
 
-async function cargarVotos() {
-    let votos = JSON.parse(localStorage.getItem("votos")) || {};
-    Object.keys(votos).forEach(index => {
-        document.querySelector(`#votos-${index}`).textContent = votos[index];
-    });
+// Función para manejar los votos
+function votar(tipo) {
+    alert(`Has votado en la sección de ${tipo}`);
 }
 
-function votar(index) {
-    let votos = JSON.parse(localStorage.getItem("votos")) || {};
-    votos[index] = (votos[index] || 0) + 1;
-    localStorage.setItem("votos", JSON.stringify(votos));
-    document.querySelector(`#votos-${index}`).textContent = votos[index];
-}
-
-// Cargar datos al abrir la web
+// Cargar los datos al abrir la página
 cargarDatos();
+
+// Mostrar la sección de Airbnb por defecto
+mostrarSeccion('airbnb');

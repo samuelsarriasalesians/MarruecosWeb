@@ -3,28 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Opciones de Viaje a Marruecos</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Travel Morolandia</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Barra de navegación -->
+    <header class="appbar">
+        <h1>Travel Morolandia</h1>
+        <nav>
+            <button class="nav-button" onclick="mostrarSeccion('airbnb')">Airbnb</button>
+            <button class="nav-button" onclick="mostrarSeccion('actividades')">Actividades</button>
+            <button class="nav-button" onclick="mostrarSeccion('vuelos')">Vuelos</button>
+        </nav>
+    </header>
 
-    <h1>Opciones para el Viaje a Marruecos</h1>
-    
-    <table id="tabla-viaje">
-        <thead>
-            <tr>
-                <th>Airbnb</th>
-                <th>Ciudad</th>
-                <th>Precio Total</th>
-                <th>Precio por Persona</th>
-                <th>Actividades</th>
-                <th>Votos</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Aquí se llenarán los datos con JavaScript -->
-        </tbody>
-    </table>
+    <!-- Contenido -->
+    <section id="airbnb" class="section">
+        <h2>Airbnb</h2>
+        <div id="airbnb-content" class="content"></div>
+    </section>
+
+    <section id="actividades" class="section">
+        <h2>Actividades</h2>
+        <div id="actividades-content" class="content"></div>
+    </section>
+
+    <section id="vuelos" class="section">
+        <h2>Vuelos</h2>
+        <div id="vuelos-content" class="content"></div>
+    </section>
+
+    <!-- Resumen -->
+    <footer class="summary">
+        <h2>Resumen</h2>
+        <p>Fecha del viaje: 29 de agosto - 3 de septiembre</p>
+        <p>Total estimado: <span id="total-estimado">€</span></p>
+        <p>Comida estimada: <span id="comida-estimada">€</span></p>
+        <p>Personas: 15 (±)</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
