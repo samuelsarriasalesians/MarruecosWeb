@@ -11,27 +11,42 @@
         <h1>Viaje a Marruecos - Resumen (16 personas)</h1>
         <nav>
             <ul>
-                <li><a href="#" onclick="mostrarSeccion('airbnb')">Airbnbs</a></li>
-                <li><a href="#" onclick="mostrarSeccion('actividades')">Actividades</a></li>
-                <li><a href="#" onclick="mostrarSeccion('vuelos')">Vuelos</a></li>
+                <li><a href="#airbnbs">Airbnbs</a></li>
+                <li><a href="#actividades">Actividades</a></li>
+                <li><a href="#resumen">Resumen Total</a></li>
             </ul>
         </nav>
     </header>
 
-    <section id="airbnb" class="section">
-        <h2>Airbnbs</h2>
-        <div id="airbnb-content"></div>
+    <section id="airbnbs">
+        <h2 onclick="toggleSection('airbnbs-content')">Airbnbs</h2>
+        <div id="airbnbs-content" class="collapsible-content hidden">
+            <div id="airbnb-list"></div>
+        </div>
     </section>
 
-    <section id="actividades" class="section" style="display:none;">
-        <h2>Actividades</h2>
-        <div id="actividades-content"></div>
+    <section id="actividades">
+        <h2 onclick="toggleSection('actividades-content')">Actividades</h2>
+        <div id="actividades-content" class="collapsible-content hidden">
+            <div id="actividad-list"></div>
+        </div>
     </section>
 
-    <section id="vuelos" class="section" style="display:none;">
-        <h2>Vuelos</h2>
-        <div id="vuelos-content"></div>
+    <section id="resumen">
+        <h2 onclick="toggleSection('resumen-content')">Resumen Total</h2>
+        <div id="resumen-content" class="collapsible-content">
+            <p><strong>Precio Vuelos:</strong> <span id="precio-vuelos"></span>€ por persona</p>
+            <p><strong>Comida:</strong> <span id="precio-comida"></span>€ por persona</p>
+            <p><strong>Rango Alojamiento:</strong> <span id="rango-alojamiento"></span>€ por persona</p>
+            <p><strong>Rango Total Estimado:</strong> <span id="rango-total"></span>€ por persona</p>
+        </div>
     </section>
+
+    <button id="boton-resumen" onclick="irAResumen()">⬇ Ir al Resumen</button>
+
+    <footer>
+        <p>&copy; Viaje a Morolandia - llevar jamón por seguridad</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>

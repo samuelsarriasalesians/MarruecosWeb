@@ -1,11 +1,9 @@
-/* Reset de estilos básicos */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Estilos generales */
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
@@ -18,10 +16,10 @@ header {
     color: white;
     padding: 1rem;
     text-align: center;
-}
-
-header h1 {
-    font-size: 2rem;
+    position: relative; /* Asegúrate de que sea 'relative' o 'static' */
+    width: 100%;
+    z-index: 10;
+    transition: top 0.3s;
 }
 
 nav ul {
@@ -40,18 +38,11 @@ nav ul li a {
     font-size: 1.1rem;
 }
 
-/* Estilos de las secciones */
 section {
     padding: 2rem;
     margin: 2rem 0;
     background-color: white;
     border-radius: 8px;
-}
-
-section h2 {
-    margin-bottom: 1rem;
-    font-size: 1.8rem;
-    color: #2c3e50;
 }
 
 h2 {
@@ -70,9 +61,12 @@ h2:hover {
 .collapsible-content {
     padding: 1rem;
     border: 1px solid #ddd;
-    border-top: none;
     border-radius: 0 0 8px 8px;
     background-color: #fff;
+}
+
+.hidden {
+    display: none;
 }
 
 .airbnb, .actividad {
@@ -92,16 +86,25 @@ h2:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.airbnb h3, .actividad h3 {
-    color: #34495e;
+/* Botón flotante */
+#boton-resumen {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #77a2cc;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease;
 }
 
-.airbnb p, .actividad p {
-    font-size: 1rem;
-    color: #7f8c8d;
+#boton-resumen:hover {
+    background-color: #555;
 }
 
-/* Estilos del footer */
 footer {
     background-color: #2c3e50;
     color: white;
@@ -110,56 +113,4 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
-}
-
-button {
-    display: block;
-    margin: 1rem 0;
-    padding: 0.5rem 1rem;
-    background-color: #77a2cc;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #999999;
-}
-
-.form-container {
-    margin-top: 1rem;
-    padding: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #fff;
-}
-
-.form-container h3 {
-    margin-bottom: 1rem;
-    color: #2c3e50;
-}
-
-.form-container label {
-    display: block;
-    margin-bottom: 0.5rem;
-    color: #34495e;
-}
-
-.form-container input {
-    width: 100%;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-}
-
-.airbnb button, .actividad button {
-    margin-top: 0.5rem;
-    background-color: #e74c3c;
-}
-
-.airbnb button:hover, .actividad button:hover {
-    background-color: #c0392b;
 }
