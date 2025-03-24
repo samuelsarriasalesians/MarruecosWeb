@@ -84,5 +84,5 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 function toggleSection(id) {
     const content = document.getElementById(id);
-    content.style.display = content.style.display === 'none' ? 'block' : 'none';
+    content.classList.toggle('hidden'); // Alterna la clase 'hidden'
 }
