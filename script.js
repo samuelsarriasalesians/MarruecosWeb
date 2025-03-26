@@ -38,6 +38,8 @@ function displayActividades(data) {
         const actividadEnlace = row[6] || "#"; // Enlace actividad (columna E)
         const actividadPrecio = row[7] || "No especificado"; // Precio actividad (columna G)
 
+        document.getElementById('precio-actividades').textContent = actividadPrecio;
+
         if (actividadNombre.trim() !== "") {
             const actividadDiv = document.createElement('div');
             actividadDiv.classList.add('actividad');
