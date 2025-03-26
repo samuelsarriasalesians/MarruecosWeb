@@ -31,14 +31,22 @@ function displayActividades(data) {
     const actividadList = document.getElementById('actividad-list');
     actividadList.innerHTML = '';
 
+    let totalPrecio = 0;
+    let contador = 0;
+
     data.forEach((row, index) => {
         if (index === 0) return; // Omitir encabezados
 
         const actividadNombre = row[5] || ""; // Nombre actividad (columna F)
         const actividadEnlace = row[6] || "#"; // Enlace actividad (columna E)
-        const actividadPrecio = row[7] || "No especificado"; // Precio actividad (columna G)
+        let actividadPrecio = row[7] || "No especificado"; // Precio actividad (columna G)
 
-        document.getElementById('precio-actividades').textContent = actividadPrecio;
+        // Convertir el precio a número si es válido
+        let precioNumerico = parseFloat(actividadPrecio);
+        if (!isNaN(precioNumerico)) {
+            totalPrecio += precioNumerico;
+            contador++;
+        }
 
         if (actividadNombre.trim() !== "") {
             const actividadDiv = document.createElement('div');
@@ -47,12 +55,18 @@ function displayActividades(data) {
                 <a href="${actividadEnlace}" target="_blank">
                     <h3>${actividadNombre}</h3>
                 </a>
-                <p>Precio por persona: ${actividadPrecio} €</p>
+                <p>Precio por persona: ${actividadPrecio}</p>
             `;
             actividadList.appendChild(actividadDiv);
         }
     });
+
+    // Calcular la media solo si hay precios válidos
+    const mediaPrecio = contador > 0 ? (totalPrecio / contador).toFixed(2) : "No especificado";
+
+    document.getElementById('precio-actividades').textContent = mediaPrecio + " €";
 }
+
 
 function displayResumen(data) {
     // Obtener los precios de la columna J (índice 9)
